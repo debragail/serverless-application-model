@@ -4,12 +4,12 @@
 
 from functools import wraps
 import logging
-import random
 import sys
 import time
 import traceback
 
 from greengrass_common.common_log_appender import local_cloudwatch_handler
+import secrets
 
 # Log messages in the ipc client are not part of customer's log because anything that
 # goes wrong here has nothing to do with customer's lambda code. Since we configured
@@ -97,7 +97,7 @@ def retry(time_unit, multiplier, backoff_coefficient, max_delay, max_attempts, e
                     retry_errors.append(e)
                     going_to_sleep_for = min(max_delay, multiplier * (backoff_coefficient ** have_tried))
                     if enable_jitter:
-                        going_to_sleep_for = random.random() * going_to_sleep_for
+                        going_to_sleep_for = secrets.SystemRandom().random() * going_to_sleep_for
 
                     duration = going_to_sleep_for * time_unit
                     if total_wait_time + duration > expiration_duration:
