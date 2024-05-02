@@ -66,9 +66,9 @@ logger.setLevel(logging.INFO)
 
 
 def lambda_handler(event, context):
-    logger.info("Event: " + str(event))
+    logger.info("Event: %s", str(event))
     message = json.loads(event['Records'][0]['Sns']['Message'])
-    logger.info("Message: " + str(message))
+    logger.info("Message: %s", str(message))
 
     alarm_name = message['AlarmName']
     #old_state = message['OldStateValue']
