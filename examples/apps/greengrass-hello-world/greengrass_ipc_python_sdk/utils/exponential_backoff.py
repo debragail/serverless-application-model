@@ -104,7 +104,7 @@ def retry(time_unit, multiplier, backoff_coefficient, max_delay, max_attempts, e
                         raise RetryTimeoutException(task_to_try.__name__, have_tried, max_attempts, total_wait_time,
                                                     multiplier, backoff_coefficient, enable_jitter, retry_errors)
 
-                    runtime_logger.warn('Retrying [{0}], going to sleep for {1} seconds, exception stacktrace:\n{2}'
+                    runtime_logger.warning('Retrying [{0}], going to sleep for {1} seconds, exception stacktrace:\n{2}'
                                         .format(task_to_try.__name__, duration, traceback.format_exc()))
                     time.sleep(duration)
                     total_wait_time += duration
