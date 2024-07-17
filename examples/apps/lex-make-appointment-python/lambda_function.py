@@ -12,8 +12,8 @@ import json
 import dateutil.parser
 import datetime
 import math
-import random
 import logging
+import secrets
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -129,7 +129,7 @@ def get_random_int(minimum, maximum):
     min_int = math.ceil(minimum)
     max_int = math.floor(maximum)
 
-    return random.randint(min_int, max_int - 1)
+    return secrets.SystemRandom().randint(min_int, max_int - 1)
 
 
 def get_availabilities(date):
@@ -149,7 +149,7 @@ def get_availabilities(date):
     if day_of_week == 0:
         start_hour = 10
         while start_hour <= 16:
-            if random.random() < available_probability:
+            if secrets.SystemRandom().random() < available_probability:
                 # Add an availability window for the given hour, with duration determined by another random number.
                 appointment_type = get_random_int(1, 4)
                 if appointment_type == 1:
